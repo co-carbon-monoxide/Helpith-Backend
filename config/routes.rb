@@ -4,6 +4,7 @@ Rails.application.routes.draw do
       resources :families
       resources :users
       resources :lists
+      resources :house_works
     end
   end
 end
