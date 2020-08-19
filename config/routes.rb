@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       resources :users
       resources :lists
       resources :house_works
+      resources :tasks
     end
   end
 end
