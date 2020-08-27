@@ -2,10 +2,13 @@ module Api::V1
   class ListsController < ApplicationController
     before_action :set_list, only: [:show, :update, :destroy]
 
+    # List
+      # listDate
+      # family_id
+
     # GET /lists
     def index
       @lists = List.all
-
       render json: @lists
     end
 
@@ -14,9 +17,23 @@ module Api::V1
       render json: @list
     end
 
+    def show_by_date
+      @list = List.find_by_date(params[:date])
+      if @list.blank?
+        @family = Family.find(params[:family_id])
+        @list = @family.lists.build(name: params[:name], date: params[:date], family_id: params[:family_id])
+        unless @list.save
+          render json: @list.errors, status: :unprocessable_entity
+          return
+        end
+      end
+      render json: @list
+    end
+
     # POST /lists
     def create
-      @list = List.new(list_params)
+      @family = Family.find(params[:family_id])
+      @list = @family.lists.build(list_params)
 
       if @list.save
         render json: @list, status: :created, location: @list
@@ -47,7 +64,7 @@ module Api::V1
 
     # Only allow a trusted parameter "white list" through.
     def list_params
-      params.require(:list).permit(:name, :date)
+      params.require(:list).permit(:name, :date, :family_id)
     end
   end
 end

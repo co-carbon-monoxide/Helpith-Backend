@@ -6,4 +6,9 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-3.times {|n| Family.create(name: "Test-family-#{n}")}
+family = Family.create(name: "田中家")
+
+mother = family.users.create(name: "お母さん", email: "mother@example.com", password_digest: "password")
+father = family.users.create(name: "お父さん", email: "father@example.com", password_digest: "password")
+child1 = family.users.create(name: "太郎", email: "taro@example.com", password_digest: "password")
+child2 = family.users.create(name: "花子", email: "hanako@example.com", password_digest: "password")
