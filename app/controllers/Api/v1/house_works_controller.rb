@@ -16,10 +16,11 @@ module Api::V1
 
     # POST /house_works
     def create
-      @house_work = HouseWork.new(house_work_params)
+      @list = List.find(params[:list_id])
+      @house_work = @list.house_works.build(house_work_params)
 
       if @house_work.save
-        render json: @house_work, status: :created, location: @house_work
+        render json: @house_work, status: :created
       else
         render json: @house_work.errors, status: :unprocessable_entity
       end
@@ -47,7 +48,7 @@ module Api::V1
 
     # Only allow a trusted parameter "white list" through.
     def house_work_params
-      params.require(:house_work).permit(:name, :time)
+      params.require(:house_work).permit(:name, :time, :list_id)
     end
   end
 end
