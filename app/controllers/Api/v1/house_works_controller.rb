@@ -48,7 +48,7 @@ module Api::V1
 
     # Only allow a trusted parameter "white list" through.
     def house_work_params
-      params.require(:house_work).permit(:name, :time, :list_id)
+      params.require(:house_work).permit(:name, :time, :done, :list_id, :user_id)
     end
   end
 end
