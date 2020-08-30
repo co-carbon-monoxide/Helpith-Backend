@@ -18,7 +18,7 @@ module Api::V1
     end
 
     def show_by_date
-      @list = List.all.where(date: params[:date], family_id: [:family_id])
+      @list = List.find_by(date: params[:date], family_id: [:family_id])
       if @list.blank?
         @family = Family.find(params[:family_id])
         @list = @family.lists.build(name: params[:name], date: params[:date], family_id: params[:family_id])
