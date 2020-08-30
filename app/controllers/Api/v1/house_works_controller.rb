@@ -14,6 +14,15 @@ module Api::V1
       render json: @house_work
     end
 
+    def put_done
+      @house_work = HouseWork.find(params[:id])
+      if @house_work.update(done: true)
+        render json: @house_work
+      else
+        render json: @house_work.errors, status: :unprocessable_entity
+      end
+    end
+
     # POST /house_works
     def create
       @list = List.find(params[:list_id])
