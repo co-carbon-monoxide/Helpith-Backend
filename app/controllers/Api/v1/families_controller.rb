@@ -19,7 +19,7 @@ module Api::V1
       @family = Family.new(family_params)
 
       if @family.save
-        render json: @family, status: :created, location: @family
+        render json: @family, status: :created
       else
         render json: @family.errors, status: :unprocessable_entity
       end
